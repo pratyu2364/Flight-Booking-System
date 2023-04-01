@@ -1,6 +1,7 @@
 package com.example.backend.config;
 
 //import jakarta.servlet.Filter;
+import com.example.backend.auth.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ public class SecurityConfiguration {
 
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;
+  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
   //private final LogoutHandler logoutHandler;
 
   @Bean
@@ -32,6 +34,8 @@ public class SecurityConfiguration {
           .permitAll()
         .anyRequest()
           .authenticated()
+            .and().exceptionHandling()
+            .authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
         .and()
           .sessionManagement()
           .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
