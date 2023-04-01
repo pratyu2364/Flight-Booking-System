@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -12,7 +14,7 @@ import java.time.LocalDateTime;
 public class FlightTrip {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private UUID id;
     @ManyToOne
     @JoinColumn(name="airplane_id", nullable=false)
     private Airplane airplane;

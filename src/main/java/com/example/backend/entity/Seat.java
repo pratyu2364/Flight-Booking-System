@@ -2,6 +2,9 @@ package com.example.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.UUID;
+
 @Getter
 @Setter
 @Entity
@@ -11,7 +14,7 @@ public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private UUID id;
     @ManyToOne
     @JoinColumn(name="trip_id",nullable = false)
     private FlightTrip flightTrip;
