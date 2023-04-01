@@ -24,6 +24,10 @@ public class Traveller {
     private FlightTrip flightTrip;
 
     @ManyToOne
+    @JoinColumn(name="user_id",nullable = false)
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name="seat_id",nullable = false)
     private Seat seat;
     private String name;
