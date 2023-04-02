@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.example.backend.entity.Airplane;
 import com.example.backend.entity.Airport;
 import com.example.backend.entity.FlightTrip;
+import com.example.backend.entity.Seat;
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.payload.FlightTripRequest;
 import com.example.backend.repository.FlightTripRepo;
@@ -19,6 +20,8 @@ public class FlightTripService {
     FlightTripRepo flightTripRepo;
     @Autowired
     AirportService airportService;
+    @Autowired
+    SeatService seatService;
 
     @Autowired
     AirplaneService airplaneService;
@@ -32,7 +35,17 @@ public class FlightTripService {
         f.setAirplane(airplane);
         f.setArrivalAirport(arrivalAirport);
         f.setDepartureAirport(departAirport);
+        int val = airplane.getSeatingCapacity();
         flightTripRepo.save(f);
+        for(int i = 0;i<val;i++){
+            Seat s = new Seat();
+            s.setAvailability(true);
+            s.setType("economy");
+            s.setPrices(3000);
+            s.setSeatNumber(Integer.toString(i));
+            s.setFlightTrip(f);
+            seatService.add_seat(s);
+        }
         return f;
     }
     public List<FlightTrip> find_all_flight_trips(){
