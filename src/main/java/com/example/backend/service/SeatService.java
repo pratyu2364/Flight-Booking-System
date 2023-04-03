@@ -18,16 +18,13 @@ public class SeatService {
         seatRepo.save(seat);
         return "saved";
     }
-    public List<Seat> find_all_seats_by_trip(){
-        return seatRepo.findAll();
-    }
+
     public Seat find_seat_by_id(UUID id){
         Seat seat = seatRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Seat", " Id ",id));
         return seat;
     }
     public List<Seat> find_all_by_tripid(UUID id){
-        List<Seat>s = seatRepo.findAllByFlightTripId(id);
-        return s;
+        return seatRepo.findAllByFlightTripId(id);
     }
     public Seat bookSeat(UUID id) {
         Seat seat = find_seat_by_id(id);

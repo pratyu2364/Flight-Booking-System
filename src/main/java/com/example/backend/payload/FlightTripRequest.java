@@ -15,7 +15,7 @@ public class FlightTripRequest {
     private UUID airportDepartureId;
     private UUID airportArrivalId;
     private UUID flightId;
-    private String arrivalTime;
-    private String departTime;
+    private LocalDateTime arrivalTime;
+    private LocalDateTime departureTime;
 
 }

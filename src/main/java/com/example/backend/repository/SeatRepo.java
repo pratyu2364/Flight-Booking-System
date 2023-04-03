@@ -11,4 +11,6 @@ public interface SeatRepo extends JpaRepository<Seat, UUID>{
      Optional<Seat>findById(UUID id);
      List<Seat>findAllByFlightTripId(UUID id);
 
+
+
 }
