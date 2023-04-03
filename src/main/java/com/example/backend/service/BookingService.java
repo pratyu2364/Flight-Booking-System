@@ -74,6 +74,9 @@ public class BookingService {
 
             t.setSeat(s);
 
+            //mark seat as booked
+            seatRepo.setSeatStatusbyId(false,seat_id);
+
             passengers.add(t);
         }
 
