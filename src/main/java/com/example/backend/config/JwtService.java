@@ -9,9 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -31,17 +33,24 @@ public class JwtService {
   public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
   }
-
+  public static final String TOKEN_TYPE = "JWT";
+  public static final String TOKEN_ISSUER = "order-api";
+  public static final String TOKEN_AUDIENCE = "order-app";
   public String generateToken(
       Map<String, Object> extraClaims,
       UserDetails userDetails
   ) {
     return Jwts
         .builder()
-        .setClaims(extraClaims)
+       //.setClaims(extraClaims)
         .setSubject(userDetails.getUsername())
+            .claim("name", userDetails.getUsername())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+        .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
+        .setId(UUID.randomUUID().toString())
+        .setIssuer(TOKEN_ISSUER)
+        .setAudience(TOKEN_AUDIENCE)
         .signWith(getSignInKey(), SignatureAlgorithm.HS256)
         .compact();
   }

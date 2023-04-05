@@ -25,10 +25,8 @@ public class AuthenticationService {
     user.setEmail(request.getEmail());
     user.setRole(Role.ROLE_USER);
     var savedUser = repository.save(user);
-    var jwtToken = jwtService.generateToken(user);
-    return AuthenticationResponse.builder()
-        .token(jwtToken)
-        .build();
+    String jwtToken = jwtService.generateToken(user);
+    return new AuthenticationResponse(jwtToken);
   }
   public AuthenticationResponse register_admin(RegisterRequest request) {
     User user = new User();
@@ -38,10 +36,8 @@ public class AuthenticationService {
     user.setEmail(request.getEmail());
     user.setRole(Role.ROLE_ADMIN);
     var savedUser = repository.save(user);
-    var jwtToken = jwtService.generateToken(user);
-    return AuthenticationResponse.builder()
-            .token(jwtToken)
-            .build();
+    String jwtToken = jwtService.generateToken(user);
+    return new AuthenticationResponse(jwtToken);
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -60,9 +56,7 @@ public class AuthenticationService {
     var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
     var jwtToken = jwtService.generateToken(user);
-    return AuthenticationResponse.builder()
-        .token(jwtToken)
-        .build();
+    return new AuthenticationResponse(jwtToken);
   }
 
 //  private void saveUserToken(User user, String jwtToken) {

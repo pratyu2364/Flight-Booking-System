@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface FlightTripRepo extends JpaRepository<FlightTrip, UUID> {
     public Optional<FlightTrip>findById(UUID id);
+
 }
