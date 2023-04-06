@@ -1,5 +1,6 @@
 package com.example.backend.config;
 
+import com.example.backend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,7 +31,7 @@ public class JwtService {
     return claimsResolver.apply(claims);
   }
 
-  public String generateToken(UserDetails userDetails) {
+  public String generateToken(User userDetails) {
     return generateToken(new HashMap<>(), userDetails);
   }
   public static final String TOKEN_TYPE = "JWT";
@@ -38,13 +39,14 @@ public class JwtService {
   public static final String TOKEN_AUDIENCE = "order-app";
   public String generateToken(
       Map<String, Object> extraClaims,
-      UserDetails userDetails
+      User user
   ) {
     return Jwts
         .builder()
        //.setClaims(extraClaims)
-        .setSubject(userDetails.getUsername())
-            .claim("name", userDetails.getUsername())
+        .setSubject(user.getEmail())
+            .claim("name", user.getEmail())
+            .claim("role",user.getRole())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
         .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
