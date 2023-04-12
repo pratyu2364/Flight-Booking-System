@@ -22,7 +22,7 @@ public class AuthenticationController {
   public AuthenticationResponse register_admin(
           @RequestBody RegisterRequest request
   ) {
-    return service.register(request);
+    return service.register_admin(request);
   }
   @PostMapping("/authenticate")
   public AuthenticationResponse authenticate(

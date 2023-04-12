@@ -8,14 +8,12 @@ import com.example.backend.repository.FlightTripRepo;
 import com.example.backend.repository.SeatRepo;
 import com.example.backend.repository.TravellerRepo;
 import com.example.backend.repository.UserRepo;
-import com.example.backend.service.AirplaneService;
-import com.example.backend.service.BookingService;
-import com.example.backend.service.SeatService;
-import com.example.backend.service.UserService;
+import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-//@PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasRole('USER')")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/user")
 public class UserController {
@@ -35,6 +33,9 @@ public class UserController {
 
     @Autowired
     private SeatService seatService;
+
+    @Autowired
+    private SearchService searchService;
 
     @GetMapping("/demo")
     public ResponseEntity<?> demo_function() {
@@ -63,6 +64,17 @@ public class UserController {
     {
          List<Seat> seats = seatService.find_all_by_tripid(tripId);
          return ResponseEntity.status(HttpStatus.OK).body(seats);
+    }
+    @GetMapping("/search-all/{dept_city}/{arr_city}/{date}")
+    public  ResponseEntity<?>search(@PathVariable("dept_city") String dept_city,@PathVariable("arr_city") String arr_city,@PathVariable("date")String date){
+        System.out.println(dept_city+" "+arr_city+" "+date);
+        List<FlightTrip>f_list =  searchService.Search(dept_city,arr_city,date);
+        return ResponseEntity.status(HttpStatus.OK).body(f_list);
+    }
+    @GetMapping("/search-all-seats/{dept_city}/{arr_city}/{date}/{seats_required}")
+    public  ResponseEntity<?>search_seats(@PathVariable("dept_city") String dept_city,@PathVariable("arr_city") String arr_city,@PathVariable("date")String date,@PathVariable("seats_required") Integer seats_required){
+        List<FlightTrip>f_list =  searchService.SearchBasedOnSeats(dept_city,arr_city,date,seats_required);
+        return ResponseEntity.status(HttpStatus.OK).body(f_list);
     }
 
 

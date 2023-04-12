@@ -18,6 +18,8 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
   public AuthenticationResponse register(RegisterRequest request) {
+    if(repository.existsByEmail(request.getEmail()))
+      throw new ApiException("Email already exists");
     User user = new User();
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setName(request.getName());
@@ -29,6 +31,8 @@ public class AuthenticationService {
     return new AuthenticationResponse(jwtToken);
   }
   public AuthenticationResponse register_admin(RegisterRequest request) {
+    if(repository.existsByEmail(request.getEmail()))
+      throw new ApiException("Email already exists");
     User user = new User();
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setName(request.getName());
@@ -36,6 +40,7 @@ public class AuthenticationService {
     user.setEmail(request.getEmail());
     user.setRole(Role.ROLE_ADMIN);
     var savedUser = repository.save(user);
+
     String jwtToken = jwtService.generateToken(user);
     return new AuthenticationResponse(jwtToken);
   }

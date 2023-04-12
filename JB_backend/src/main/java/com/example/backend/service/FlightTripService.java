@@ -31,7 +31,7 @@ public class FlightTripService {
         Airplane airplane = airplaneService.find_airplane_by_id(flightTripRequest.getFlightId());
         FlightTrip f = new FlightTrip();
         f.setArrivalTime(flightTripRequest.getArrivalTime());
-        f.setDepartTime(flightTripRequest.getDepartureTime());
+        f.setDepartTime(flightTripRequest.getDepartTime());
         f.setAirplane(airplane);
         f.setArrivalAirport(arrivalAirport);
         f.setDepartureAirport(departAirport);

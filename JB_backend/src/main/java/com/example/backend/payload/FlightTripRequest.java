@@ -16,6 +16,6 @@ public class FlightTripRequest {
     private UUID airportArrivalId;
     private UUID flightId;
     private LocalDateTime arrivalTime;
-    private LocalDateTime departureTime;
+    private LocalDateTime departTime;
 
 }
