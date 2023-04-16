@@ -36,6 +36,8 @@ public class UserController {
 
     @Autowired
     private SearchService searchService;
+    @Autowired
+    private AirportService airportService;
 
     @GetMapping("/demo")
     public ResponseEntity<?> demo_function() {
@@ -75,6 +77,11 @@ public class UserController {
     public  ResponseEntity<?>search_seats(@PathVariable("dept_city") String dept_city,@PathVariable("arr_city") String arr_city,@PathVariable("date")String date,@PathVariable("seats_required") Integer seats_required){
         List<FlightTrip>f_list =  searchService.SearchBasedOnSeats(dept_city,arr_city,date,seats_required);
         return ResponseEntity.status(HttpStatus.OK).body(f_list);
+    }
+    @GetMapping ("/get-all-airport")
+    public ResponseEntity<?>find_all_airports(){
+        List<Airport>airportList = airportService.find_all_airports();
+        return ResponseEntity.accepted().body(airportList);
     }
 
 
