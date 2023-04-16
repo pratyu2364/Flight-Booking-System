@@ -54,4 +54,8 @@ public class FlightTripService {
     public FlightTrip find_flight_trip_by_id(UUID id){
         return flightTripRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Flight Trip", " Id ",id));
     }
+    public void delete_by_id(UUID id){
+        FlightTrip a = flightTripRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Flight Trip", " Id ",id));
+        flightTripRepo.delete(a);
+    }
 }

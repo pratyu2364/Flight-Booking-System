@@ -18,6 +18,7 @@ public class Airplane {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    private String name;
     private String companyName;
     private Integer seatingCapacity;
 }

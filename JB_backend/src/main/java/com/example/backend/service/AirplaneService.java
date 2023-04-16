@@ -26,5 +26,9 @@ public class AirplaneService {
         Airplane a = airplaneRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Airplane", " Id ",id));
         return a;
     }
+    public void delete_by_id(UUID id){
+        Airplane a = airplaneRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Airplane", " Id ",id));
+        airplaneRepo.delete(a);
+    }
 
 }

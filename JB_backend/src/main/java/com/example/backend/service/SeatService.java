@@ -32,5 +32,9 @@ public class SeatService {
         add_seat(seat);
         return seat;
     }
+    public void delete_by_id(UUID id){
+        Seat a = seatRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("seat", " Id ",id));
+        seatRepo.delete(a);
+    }
 
 }
