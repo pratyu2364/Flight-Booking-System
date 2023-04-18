@@ -16,11 +16,13 @@ public class SearchService {
     @Autowired
     private FlightTripRepo flightTripRepo;
 
-    public List<FlightTrip>Search(String departure_city, String arrival_city, String date){
-        return flightTripRepo.findByArrivalCityAndDepartureCityAndDate(departure_city,arrival_city,date);
+    public List<FlightTrip>Search(String departure_city, String arrival_city, LocalDateTime date){
+        LocalDateTime date2 = date.plusHours(24);
+        return flightTripRepo.findByArrivalCityAndDepartureCityAndDate(departure_city,arrival_city,date,date2);
     }
-    public List<FlightTrip>SearchBasedOnSeats(String departure_city, String arrival_city, String date,Integer seats_required){
-        return flightTripRepo.findByArrivalCityAndDepartureCityAndDateAndSeats(departure_city,arrival_city,date,seats_required);
+    public List<FlightTrip>SearchBasedOnSeats(String departure_city, String arrival_city, LocalDateTime date,Integer seats_required){
+        LocalDateTime date2 = date.plusHours(24);
+        return flightTripRepo.findByArrivalCityAndDepartureCityAndDateAndSeats(departure_city,arrival_city,date,date2,seats_required);
     }
 
 

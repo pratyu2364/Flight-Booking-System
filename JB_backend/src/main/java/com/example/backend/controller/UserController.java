@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -67,14 +68,14 @@ public class UserController {
          List<Seat> seats = seatService.find_all_by_tripid(tripId);
          return ResponseEntity.status(HttpStatus.OK).body(seats);
     }
-    @GetMapping("/search-all/{dept_city}/{arr_city}/{date}")
-    public  ResponseEntity<?>search(@PathVariable("dept_city") String dept_city,@PathVariable("arr_city") String arr_city,@PathVariable("date")String date){
+    @GetMapping("/search-all")
+    public  ResponseEntity<?>search(@RequestParam ("dept_city") String dept_city,@RequestParam("arr_city") String arr_city,@RequestParam("date") LocalDateTime date){
         System.out.println(dept_city+" "+arr_city+" "+date);
         List<FlightTrip>f_list =  searchService.Search(dept_city,arr_city,date);
         return ResponseEntity.status(HttpStatus.OK).body(f_list);
     }
-    @GetMapping("/search-all-seats/{dept_city}/{arr_city}/{date}/{seats_required}")
-    public  ResponseEntity<?>search_seats(@PathVariable("dept_city") String dept_city,@PathVariable("arr_city") String arr_city,@PathVariable("date")String date,@PathVariable("seats_required") Integer seats_required){
+    @GetMapping("/search-all-seats")
+    public  ResponseEntity<?>search_seats(@RequestParam("dept_city") String dept_city,@RequestParam("arr_city") String arr_city,@RequestParam("date")LocalDateTime date,@RequestParam("seats_required") Integer seats_required){
         List<FlightTrip>f_list =  searchService.SearchBasedOnSeats(dept_city,arr_city,date,seats_required);
         return ResponseEntity.status(HttpStatus.OK).body(f_list);
     }
