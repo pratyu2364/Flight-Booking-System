@@ -33,6 +33,7 @@ public class FlightTrip {
 
     private LocalDateTime arrivalTime;
     private LocalDateTime departTime;
+    private Integer price;
 
 
 }

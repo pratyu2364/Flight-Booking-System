@@ -35,6 +35,7 @@ public class FlightTripService {
         f.setAirplane(airplane);
         f.setArrivalAirport(arrivalAirport);
         f.setDepartureAirport(departAirport);
+        f.setPrice(flightTripRequest.getPrice());
         int val = airplane.getSeatingCapacity();
         flightTripRepo.save(f);
         for(int i = 0;i<val;i++){

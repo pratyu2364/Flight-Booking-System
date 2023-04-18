@@ -18,4 +18,6 @@ public class FlightTripRequest {
     private LocalDateTime arrivalTime;
     private LocalDateTime departTime;
 
+    private Integer price;
+
 }
