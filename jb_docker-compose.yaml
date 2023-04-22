@@ -1,0 +1,69 @@
+version: '3'
+services:
+
+  jahazbooker-db:
+    image: mysql:8.0.28
+    container_name: jb-db-container
+    volumes:
+      - db-data:/var/lib/mysql/
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=thisisroot
+      - MYSQL_USER=jbuser
+      - MYSQL_PASSWORD=jbisbest
+      - MYSQL_DATABASE=flightdb
+      - MYSQL_ROOT_HOST=%
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 40s
+      timeout: 20s
+      retries: 5
+    networks:
+      - db
+    restart: on-failure
+
+  jahazbooker-backend:
+    image: jahazbooker-backend:latest
+    container_name: jb-backend-container
+    build: 
+      context: ./JB_backend/
+      dockerfile: Dockerfile
+    environment:
+      - DB_SERVER=jahazbooker-db
+      - DB_NAME=flightdb
+      - MYSQL_USER=jbuser
+      - MYSQL_PASSWORD=jbisbest
+      - DB_PORT=3306
+    ports:
+      - 8082:9001
+    depends_on:
+      jahazbooker-db:
+        condition: service_healthy
+    networks:
+      - db
+      - frontend
+    restart: on-failure       
+
+
+  jahazbooker-frontend:
+    image: jahazbooker-frontend:latest
+    container_name: jb-frontend-container
+    build: 
+      context: ../Frontend/
+      dockerfile: Dockerfile
+    stdin_open: true
+    ports:
+      - 4200:3000
+    depends_on:
+      - jahazbooker-backend
+    networks:
+      - frontend
+    restart: on-failure
+
+volumes:
+  db-data:
+  
+networks:
+  db:
+  frontend:

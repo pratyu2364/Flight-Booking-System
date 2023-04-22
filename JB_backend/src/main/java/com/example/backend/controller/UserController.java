@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @RestController
 @PreAuthorize("hasRole('USER')")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","http://jahazbooker-frontend:3000"})
 @RequestMapping("/user")
 public class UserController {
     @Autowired
