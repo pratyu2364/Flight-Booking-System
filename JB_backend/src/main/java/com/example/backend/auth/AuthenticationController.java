@@ -16,6 +16,7 @@ public class AuthenticationController {
   public AuthenticationResponse register(
       @RequestBody RegisterRequest request
   ) {
+
     return service.register(request);
   }
   @PostMapping("/register-admin")

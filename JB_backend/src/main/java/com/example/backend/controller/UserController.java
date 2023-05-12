@@ -9,6 +9,8 @@ import com.example.backend.repository.SeatRepo;
 import com.example.backend.repository.TravellerRepo;
 import com.example.backend.repository.UserRepo;
 import com.example.backend.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import java.util.UUID;
 @CrossOrigin(origins = {"http://localhost:3000","http://jahazbooker-frontend:3000"})
 @RequestMapping("/user")
 public class UserController {
+    Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private BookingService bookingService;
 
@@ -42,6 +45,7 @@ public class UserController {
 
     @GetMapping("/demo")
     public ResponseEntity<?> demo_function() {
+       logger.info("Inside demo function");
         return ResponseEntity.accepted().body("from authenticated user");
     }
 
@@ -56,6 +60,7 @@ public class UserController {
 
     @PostMapping("/book")
     public ResponseEntity<?> book_tickets (@RequestBody TravellerListDto travellers){
+        logger.info("In booking ");
         List<Traveller> bookedPassengers = bookingService.book_tickets(travellers);
 
         return ResponseEntity.status(HttpStatus.OK)
