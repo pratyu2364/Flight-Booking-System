@@ -1,17 +1,20 @@
 package com.example.backend.service;
 
-
 import com.example.backend.dto.TravellerDto;
 import com.example.backend.dto.TravellerListDto;
+import com.example.backend.entity.ExchangeRequest;
 import com.example.backend.entity.FlightTrip;
 import com.example.backend.entity.Seat;
 import com.example.backend.entity.Traveller;
 import com.example.backend.entity.User;
 import com.example.backend.exception.ResourceNotFoundException;
+import com.example.backend.repository.ExchangeRepo;
 import com.example.backend.repository.FlightTripRepo;
 import com.example.backend.repository.SeatRepo;
 import com.example.backend.repository.TravellerRepo;
 import com.example.backend.repository.UserRepo;
+
+import org.hibernate.boot.model.TruthValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -32,34 +35,37 @@ public class BookingService {
     @Autowired
     private UserRepo userRepo;
 
-
     @Autowired
     private FlightTripRepo flightTripRepo;
 
     @Autowired
     private SeatRepo seatRepo;
 
+    @Autowired
+    private ExchangeRepo exchangeRepo;
 
-    public List<Traveller> book_tickets (TravellerListDto travellers){
+    public List<Traveller> book_tickets(TravellerListDto travellers) {
         System.out.println(travellers);
 
-        UUID booking_user_id = travellers.getBooking_user_id();
+        // UUID booking_user_id = travellers.getBookingUserId();
 
-        UUID trip_id = travellers.getTrip_id();
+        String booking_user_email = travellers.getBookingUserEmailId();
+
+        UUID trip_id = travellers.getTripId();
 
         // get the user who booked the ticket for all
-        User bookingUser = userRepo.findById(booking_user_id).orElseThrow(() -> new ResourceNotFoundException("User", " Id ",booking_user_id));;
+        User bookingUser = userRepo.findByEmail(booking_user_email)
+                .orElseThrow(() -> new ResourceNotFoundException("User", " Id ", null));
 
+        // get the trip for which the ticket is booked
+        FlightTrip flightTrip = flightTripRepo.findById(trip_id)
+                .orElseThrow(() -> new ResourceNotFoundException("FlightTrip", " Id ", trip_id));
+        ;
 
-        // get the trip
-        FlightTrip flightTrip = flightTripRepo.findById(trip_id).orElseThrow(() -> new ResourceNotFoundException("FlightTrip", " Id ",trip_id));;
-
-
-        List<Traveller> passengers = new ArrayList<>();
+        List<Traveller> savedPassengers = new ArrayList<>();
 
         // set the individual details for each person
-        for(TravellerDto traveller : travellers.getTravellerList())
-        {
+        for (TravellerDto traveller : travellers.getTravellerList()) {
             Traveller t = new Traveller();
 
             t.setUser(bookingUser);
@@ -68,20 +74,45 @@ public class BookingService {
             t.setName(traveller.getName());
             t.setAge(traveller.getAge());
 
-            UUID seat_id = traveller.getSeat_id();
+            UUID seat_id = traveller.getSeatId();
 
-            Seat s = seatRepo.findById(seat_id).orElseThrow(() -> new ResourceNotFoundException("Seat"," Id ", seat_id));
+            Seat bookedSeat = seatRepo.findById(seat_id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Seat", " Id ", seat_id));
 
-            t.setSeat(s);
+            t.setSeat(bookedSeat);
 
-            //mark seat as booked
-            seatRepo.setSeatStatusbyId(false,seat_id);
+            // mark seat as booked
+            seatRepo.setSeatStatusbyId(false, seat_id);
 
-            passengers.add(t);
+            // save traveller in db and get his auto generated traveller id
+
+            System.out.println("Traveller info: "+ t.toString());
+
+            Traveller savedTraveller = travellerRepo.save(t);
+
+            // get requested seat traveller id
+            UUID requested_seat_id = traveller.getExchangeSeatId();
+            List<Traveller> askedTravellers = travellerRepo.findByFlightTripIdAndSeatId(trip_id, requested_seat_id);            
+
+            Traveller requestedTraveller = askedTravellers.get(0);
+
+            // create an exchange request using traveller id of requested seat id and the
+            // current traveeler id received in previous step
+
+            if (traveller.getExchangeSeatId() != null) {
+                ExchangeRequest exchangeRequest = new ExchangeRequest();
+                exchangeRequest.setRequestorTraveller(savedTraveller);
+                exchangeRequest.setRequestedTraveller(requestedTraveller);
+
+                exchangeRepo.save(exchangeRequest);
+            }
+
+            savedPassengers.add(savedTraveller);
+            // passengers.add(t);
         }
 
-
-        return travellerRepo.saveAll(passengers);
+        // return travellerRepo.saveAll(passengers);
+        return savedPassengers;
     }
 
 }

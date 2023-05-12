@@ -2,53 +2,25 @@ package com.example.backend.dto;
 
 import java.util.UUID;
 
-public class TravellerDto {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class TravellerDto 
+{
+    
     private String name;
-    private int age;
 
-    private UUID seat_id;
+    private Integer age;
 
-    public UUID getSeat_id() {
-        return seat_id;
-    }
+    private UUID seatId;
 
-    public void setSeat_id(UUID seat_id) {
-        this.seat_id = seat_id;
-    }
-
-    public TravellerDto(String name, int age, UUID seat_id) {
-        this.name = name;
-        this.age = age;
-        this.seat_id = seat_id;
-    }
-
-//    public TravellerDto(String name, int age) {
-//        this.name = name;
-//        this.age = age;
-//    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "TravellerDto{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", seat_id=" + seat_id +
-                '}';
-    }
+    private UUID exchangeSeatId;
 }
