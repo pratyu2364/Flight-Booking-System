@@ -90,5 +90,21 @@ public class UserController {
         return ResponseEntity.accepted().body(airportList);
     }
 
+    @GetMapping(path = "/{tripId}/seats/available")
+    public ResponseEntity<?> getAvailableSeats (@PathVariable UUID tripId){
+        List<Seat> availableSeats = seatService.find_all_available_seats_by_tripid(tripId);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(availableSeats);
+    }
+
+    @GetMapping(path = "/{tripId}/seats/all")
+    public ResponseEntity<?> getAllSeats (@PathVariable UUID tripId){
+        List<Seat> allSeats = seatService.find_all_by_tripid(tripId);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(allSeats);
+    }
+
 
 }

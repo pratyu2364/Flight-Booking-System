@@ -6,41 +6,31 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.example.backend.entity.Traveller;
+
 import java.util.UUID;
 
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Traveller {
+public class ExchangeRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne
+    @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "trip_id", nullable = false)
-    private FlightTrip flightTrip;
-
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name="requestor_traveller_id",nullable = false)
+    private Traveller requestorTraveller;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "seat_id", nullable = false)
-    private Seat seat;
-
-    private String name;
-
-    private Integer age;
+    @JoinColumn(name="requested_traveller_id",nullable = false)
+    private Traveller requestedTraveller;
 
 }

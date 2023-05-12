@@ -1,6 +1,6 @@
 package com.example.backend.service;
 
-import com.example.backend.entity.Airport;
+
 import com.example.backend.entity.Seat;
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.SeatRepo;
@@ -35,6 +35,10 @@ public class SeatService {
     public void delete_by_id(UUID id){
         Seat a = seatRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("seat", " Id ",id));
         seatRepo.delete(a);
+    }
+
+    public List<Seat> find_all_available_seats_by_tripid(UUID tripId){
+        return seatRepo.findAllAvailableByFlightTripId(tripId);
     }
 
 }
