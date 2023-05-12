@@ -18,7 +18,6 @@ public interface TravellerRepo extends JpaRepository<Traveller, UUID> {
     @Override
     <S extends Traveller> List<S> saveAll(Iterable<S> entities);
 
-    // @Override
-    // @Query("select t.id from Traveller t where t.tripId=?1 and t.seatId=?2")
-    <S extends Traveller> List<S> findByFlightTripIdAndSeatId(UUID trip_id, UUID seat_id);
+    @Query(value="SELECT * FROM traveller t where t.trip_id=?1 and t.seat_id=?2",nativeQuery = true)
+    public List<Traveller> findByTripIdandSeatId(UUID tripId, UUID seatId);
 }

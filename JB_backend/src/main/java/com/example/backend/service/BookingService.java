@@ -90,16 +90,23 @@ public class BookingService {
 
             Traveller savedTraveller = travellerRepo.save(t);
 
-            // get requested seat traveller id
-            UUID requested_seat_id = traveller.getExchangeSeatId();
-            List<Traveller> askedTravellers = travellerRepo.findByFlightTripIdAndSeatId(trip_id, requested_seat_id);            
-
-            Traveller requestedTraveller = askedTravellers.get(0);
+            
 
             // create an exchange request using traveller id of requested seat id and the
             // current traveeler id received in previous step
 
-            if (traveller.getExchangeSeatId() != null) {
+            
+            // get requested seat traveller id
+            UUID requested_seat_id = traveller.getExchangeSeatId();
+            System.out.println("requested Seat id: " + requested_seat_id);
+
+            if (requested_seat_id != null) {
+
+                
+                List<Traveller> askedTravellers = travellerRepo.findByTripIdandSeatId(trip_id, requested_seat_id);            
+            
+                Traveller requestedTraveller = askedTravellers.get(0);
+
                 ExchangeRequest exchangeRequest = new ExchangeRequest();
                 exchangeRequest.setRequestorTraveller(savedTraveller);
                 exchangeRequest.setRequestedTraveller(requestedTraveller);
