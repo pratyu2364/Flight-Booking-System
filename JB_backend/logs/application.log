@@ -29,3 +29,6 @@
 2023-05-13 16:29:53.874 [http-nio-9001-exec-7] INFO  c.e.b.controller.UserController - [Register User] - [POST]
 2023-05-13 16:30:00.059 [http-nio-9001-exec-5] INFO  c.e.b.controller.UserController - [Authenticate] - [POST]
 2023-05-13 16:32:03.076 [http-nio-9001-exec-8] INFO  c.e.b.controller.UserController - [Authenticate] - [POST]
+2023-05-13 16:55:33.225 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-13 16:55:33.227 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-05-13 16:55:33.230 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
