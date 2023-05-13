@@ -13,11 +13,11 @@ pipeline {
 				steps {
 					// credentials are required because its a private repository
 					git branch: 'main',
-                    credentialsId: 'apnapat',
+                    credentialsId: 'github_pat',
                     url: 'https://github.com/Gunin199/JahazBooker.git'
 
                     git branch: 'main',
-                    credentialsId: 'apnapat',
+                    credentialsId: 'github_pat',
                     url: 'https://github.com/pratyu2364/Frontend.git'
 
                     sh 'ls -la'
