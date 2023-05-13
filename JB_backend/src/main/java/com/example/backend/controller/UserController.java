@@ -60,7 +60,7 @@ public class UserController {
 
     @PostMapping("/book")
     public ResponseEntity<?> book_tickets (@RequestBody TravellerListDto travellers){
-        logger.info("In booking ");
+        logger.info("[Book Tickets] - [POST]");
         List<Traveller> bookedPassengers = bookingService.book_tickets(travellers);
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -70,38 +70,42 @@ public class UserController {
     @GetMapping("/{trip_id}/get-all-seats")
     public ResponseEntity<?> get_all_seats(@PathVariable("trip_id") UUID tripId)
     {
+         logger.info("[Get All Seats for a TripId] - [GET]");
          List<Seat> seats = seatService.find_all_by_tripid(tripId);
          return ResponseEntity.status(HttpStatus.OK).body(seats);
     }
     @GetMapping("/search-all")
     public  ResponseEntity<?>search(@RequestParam ("dept_city") String dept_city,@RequestParam("arr_city") String arr_city,@RequestParam("date") LocalDateTime date){
-        System.out.println(dept_city+" "+arr_city+" "+date);
+        logger.info("[Search based on Dept City, Arrival City, Date,] - [GET]");
+        //System.out.println(dept_city+" "+arr_city+" "+date);
         List<FlightTrip>f_list =  searchService.Search(dept_city,arr_city,date);
         return ResponseEntity.status(HttpStatus.OK).body(f_list);
     }
     @GetMapping("/search-all-seats")
     public  ResponseEntity<?>search_seats(@RequestParam("dept_city") String dept_city,@RequestParam("arr_city") String arr_city,@RequestParam("date")LocalDateTime date,@RequestParam("seats_required") Integer seats_required){
+        logger.info("[Search based on Dept City, Arrival City, Date, Seats Required] - [GET]");
         List<FlightTrip>f_list =  searchService.SearchBasedOnSeats(dept_city,arr_city,date,seats_required);
         return ResponseEntity.status(HttpStatus.OK).body(f_list);
     }
     @GetMapping ("/get-all-airport")
     public ResponseEntity<?>find_all_airports(){
+        logger.info("[Find Airports] - [GET]");
         List<Airport>airportList = airportService.find_all_airports();
         return ResponseEntity.accepted().body(airportList);
     }
 
     @GetMapping(path = "/{tripId}/seats/available")
     public ResponseEntity<?> getAvailableSeats (@PathVariable UUID tripId){
+        logger.info("[Get All Available Seats for a TripId] - [GET]");
         List<Seat> availableSeats = seatService.find_all_available_seats_by_tripid(tripId);
-
         return ResponseEntity.status(HttpStatus.OK)
                 .body(availableSeats);
     }
 
     @GetMapping(path = "/{tripId}/seats/all")
     public ResponseEntity<?> getAllSeats (@PathVariable UUID tripId){
+        logger.info("[Get All Seats for a TripId] - [GET]");
         List<Seat> allSeats = seatService.find_all_by_tripid(tripId);
-
         return ResponseEntity.status(HttpStatus.OK)
                 .body(allSeats);
     }
