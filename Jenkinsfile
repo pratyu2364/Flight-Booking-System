@@ -11,18 +11,63 @@ pipeline {
         
 			stage('Git Pull') {
 				steps {
-					// credentials are required because its a private repository
-					git branch: 'main',
+				// credentials are required because its a private repository
+				git branch: 'main',
                     credentialsId: 'github_pat',
                     url: 'https://github.com/Gunin199/JahazBooker.git'
-
-                    git branch: 'main',
-                    credentialsId: 'github_pat',
-                    url: 'https://github.com/pratyu2364/Frontend.git'
-
-                    sh 'ls -la'
+				}
+			}
+			stage('Maven build and test'){
+			    steps{
+			        sh "cd JB_Backend && mvn clean install"
+			    }
+			}
+			stage('Build backend image'){
+			    steps{
+			        sh "docker build -t $DOCKERHUB_REGISTRY-backend:latest JB_Backend/"
+			    }
+			}
+			stage('Build frontend image'){
+			    steps{
+			        sh "docker build -t $DOCKERHUB_REGISTRY-frontend:latest JB_Frontend/"
+			    }
+			}
+						stage('Login to Docker Hub') {
+				steps {
+					sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
 				}
 			}
 
-    }
+			stage('Push Backend Docker Image to Docker Hub') {
+			  steps {
+			    sh "docker push $DOCKERHUB_REGISTRY-backend:latest"
+			  }
+			}
+
+			stage('Push Frontend Docker Image to Docker Hub') {
+				steps {
+					sh "docker push $DOCKERHUB_REGISTRY-frontend:latest"
+				}
+			}
+        
+			stage('Removing Docker Images from Local') {
+				steps {
+					sh "docker rmi $DOCKERHUB_REGISTRY-frontend:latest"
+					sh "docker rmi $DOCKERHUB_REGISTRY-backend:latest"
+				}
+			}
+        
+			// Ansible Deploy to remote server (managed host)
+			stage('Ansible Deploy') {
+				steps {
+					ansiblePlaybook becomeUser: 'null',
+					colorized: true,
+					installation: 'Ansible',
+					inventory: 'inventory',
+					playbook: 'ansible-playbook.yml',
+					sudoUser: 'null'
+				}
+			
+            }
+		}
 }
