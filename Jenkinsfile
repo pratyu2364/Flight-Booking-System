@@ -19,12 +19,12 @@ pipeline {
 			}
 			stage('Maven build and test'){
 			    steps{
-			        sh "cd JB_Backend && mvn clean install"
+			        sh "cd JB_backend && mvn clean install"
 			    }
 			}
 			stage('Build backend image'){
 			    steps{
-			        sh "docker build -t $DOCKERHUB_REGISTRY-backend:latest JB_Backend/"
+			        sh "docker build -t $DOCKERHUB_REGISTRY-backend:latest JB_backend/"
 			    }
 			}
 			stage('Build frontend image'){
