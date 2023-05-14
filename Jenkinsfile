@@ -1,7 +1,7 @@
 pipeline {
     // Declare variables that will be used by the later stages
     environment {
-			DOCKERHUB_REGISTRY = "guninjain/Jahazbooker"
+			DOCKERHUB_REGISTRY = "guninjain/jahazbooker"
 			DOCKERHUB_CREDENTIALS = credentials('my_docker_hub_credentials')
     }
     
