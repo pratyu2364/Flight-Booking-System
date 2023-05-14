@@ -42,7 +42,6 @@ public class UserController {
     private SearchService searchService;
     @Autowired
     private AirportService airportService;
-
     @GetMapping("/demo")
     public ResponseEntity<?> demo_function() {
        logger.info("Inside demo function");
@@ -109,6 +108,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(allSeats);
     }
+    @GetMapping("get-traveller/{email}")
+    public ResponseEntity<?>getAllTravellers(@PathVariable String email){
+        logger.info("[Get all Travellers with given user Email Id] - [GET]");
+        List<Traveller>t_list = userService.FindAllByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(t_list);
+    }
+
 
 
 }
