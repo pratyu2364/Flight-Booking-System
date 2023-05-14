@@ -108,10 +108,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(allSeats);
     }
-    @GetMapping("get-traveller/{email}")
+    @GetMapping("/get-traveller/{email}")
     public ResponseEntity<?>getAllTravellers(@PathVariable String email){
         logger.info("[Get all Travellers with given user Email Id] - [GET]");
-        List<Traveller>t_list = userService.FindAllByUserEmail(email);
+        List<Traveller>t_list = userService.findAllByUserEmail(email);
         return ResponseEntity.status(HttpStatus.OK).body(t_list);
     }
 

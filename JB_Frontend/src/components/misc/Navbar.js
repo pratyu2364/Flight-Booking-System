@@ -42,6 +42,7 @@ function Navbar() {
         <Menu.Item as={Link} to="/airport" style={adminPageStyle()}>Airport</Menu.Item>
         <Menu.Item as={Link} to="/flighttrip" style={adminPageStyle()}>Flight Trip</Menu.Item>
         <Menu.Item as={Link} to="/search-flight-trips" style={userPageStyle()}>Search Flights</Menu.Item>
+        <Menu.Item as={Link} to="/show-tickets" style={userPageStyle()}>View Tickets</Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item as={Link} to="/login" style={enterMenuStyle()}>Login</Menu.Item>
           <Menu.Item as={Link} to="/signup" style={enterMenuStyle()}>Sign Up</Menu.Item>

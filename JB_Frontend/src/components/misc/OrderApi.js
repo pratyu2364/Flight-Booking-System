@@ -32,7 +32,8 @@ export const orderApi = {
   getAllAirportsForUser,
   getAvailableSeats,
   getAllSeats,
-  bookTickets
+  bookTickets,
+  getAllTickets
 }
 
 function authenticate(email, password) {
@@ -81,6 +82,16 @@ function getAllAirports(user) {
 }
 function addAirport(user, airport) {
   return instance.post('/admin/add-airport', airport, {
+    headers: {
+      'Content-type': 'application/json',
+      'Authorization': bearerAuth(user)
+    }
+  })
+}
+//Getting list of traveller booked by the user
+function getAllTickets(user,email) {
+  const url  = `/user/get-traveller/${email}`
+  return instance.get(url, {
     headers: {
       'Content-type': 'application/json',
       'Authorization': bearerAuth(user)

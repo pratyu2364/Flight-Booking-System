@@ -15,6 +15,7 @@ import SearchPage from './components/user/Search/SearchPage'
 import BookPage from './components/user/Book/BookPage'
 import SearchForm from './components/user/Search/SearchForm'
 import SearchList from './components/user/Search/SearchList'
+import ShowTicketsPage from './components/user/ShowTickets/ShowTicketsPage'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/userpage" element={<PrivateRoute><UserPage /></PrivateRoute>}/>
           <Route path = "/search-flight-trips"element={<PrivateRoute><SearchPage/></PrivateRoute>}/>
           <Route path = "/book"element={<PrivateRoute><BookPage/></PrivateRoute>}/>
+          <Route path = "/show-tickets"element={<PrivateRoute><ShowTicketsPage/></PrivateRoute>}/>
           <Route path="*" element={<Navigate to="/" />}/>
         </Routes>
       </Router>
