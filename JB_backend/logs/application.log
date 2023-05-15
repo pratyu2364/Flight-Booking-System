@@ -1043,3 +1043,45 @@ java.lang.NullPointerException: Cannot invoke "com.example.backend.repository.Us
 2023-05-15 03:46:50.705 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-05-15 03:46:50.707 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2023-05-15 03:46:50.714 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-05-15 10:42:28.793 [main] INFO  c.example.backend.BackendApplication - Starting BackendApplication using Java 19.0.2 with PID 26144 (C:\Users\Pratyush Upadhyay\Desktop\JahazBooker\JB_backend\target\classes started by Pratyush Upadhyay in C:\Users\Pratyush Upadhyay\Desktop\JahazBooker\JB_backend)
+2023-05-15 10:42:28.796 [main] INFO  c.example.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2023-05-15 10:42:29.468 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-15 10:42:29.540 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 66 ms. Found 7 JPA repository interfaces.
+2023-05-15 10:42:30.012 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9001 (http)
+2023-05-15 10:42:30.021 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9001"]
+2023-05-15 10:42:30.022 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-05-15 10:42:30.022 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.7]
+2023-05-15 10:42:30.100 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-05-15 10:42:30.100 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1256 ms
+2023-05-15 10:42:30.217 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-15 10:42:30.288 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-15 10:42:30.578 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-05-15 10:42:30.712 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@714f1a44
+2023-05-15 10:42:30.714 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-05-15 10:42:30.731 [main] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-15 10:42:30.732 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-05-15 10:42:31.575 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-15 10:42:31.586 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-15 10:42:32.279 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-15 10:42:32.515 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@38aed8ad, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@79c4454, org.springframework.security.web.context.SecurityContextHolderFilter@2b3ee95e, org.springframework.security.web.header.HeaderWriterFilter@4b89515b, org.springframework.web.filter.CorsFilter@50f5ce5b, org.springframework.security.web.authentication.logout.LogoutFilter@64dcfd09, com.example.backend.config.JwtAuthenticationFilter@53b7f08, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3db145f7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@25bd68ea, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@31aee6d9, org.springframework.security.web.session.SessionManagementFilter@5955568, org.springframework.security.web.access.ExceptionTranslationFilter@7695184b, org.springframework.security.web.access.intercept.AuthorizationFilter@33ef393a]
+2023-05-15 10:42:32.689 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9001"]
+2023-05-15 10:42:32.704 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9001 (http) with context path ''
+2023-05-15 10:42:32.709 [main] INFO  c.example.backend.BackendApplication - Started BackendApplication in 4.293 seconds (process running for 5.185)
+2023-05-15 10:43:15.567 [http-nio-9001-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-15 10:43:15.567 [http-nio-9001-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-05-15 10:43:15.568 [http-nio-9001-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-05-15 10:43:15.675 [http-nio-9001-exec-2] INFO  c.e.b.controller.UserController - [Authenticate] - [POST]
+2023-05-15 10:43:19.543 [http-nio-9001-exec-4] INFO  c.e.b.controller.UserController - [Find Airports] - [GET]
+2023-05-15 10:43:32.988 [http-nio-9001-exec-9] INFO  c.e.b.controller.UserController - [Search based on Dept City, Arrival City, Date, Seats Required] - [GET]
+2023-05-15 10:43:35.132 [http-nio-9001-exec-7] INFO  c.e.b.controller.UserController - [Get All Seats for a TripId] - [GET]
+2023-05-15 10:44:55.738 [http-nio-9001-exec-2] INFO  c.e.b.controller.UserController - [Book Tickets] - [POST]
+2023-05-15 10:45:11.627 [http-nio-9001-exec-3] INFO  c.e.b.controller.UserController - [Get all Travellers with given user Email Id] - [GET]
+2023-05-15 10:45:12.478 [http-nio-9001-exec-9] INFO  c.e.b.controller.UserController - [Find Airports] - [GET]
+2023-05-15 10:45:12.886 [http-nio-9001-exec-10] INFO  c.e.b.controller.UserController - [Get all Travellers with given user Email Id] - [GET]
+2023-05-15 10:45:14.902 [http-nio-9001-exec-7] INFO  c.e.b.controller.UserController - [Find Airports] - [GET]
+2023-05-15 10:45:35.126 [http-nio-9001-exec-1] INFO  c.e.b.controller.UserController - [Get all Travellers with given user Email Id] - [GET]
+2023-05-15 10:48:43.344 [http-nio-9001-exec-5] INFO  c.e.b.controller.UserController - [Get all Travellers with given user Email Id] - [GET]
+2023-05-15 11:02:02.947 [http-nio-9001-exec-3] INFO  c.e.b.controller.UserController - [Get all Travellers with given user Email Id] - [GET]
+2023-05-15 11:34:31.311 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m29s849ms460µs300ns).
+2023-05-15 11:46:22.083 [http-nio-9001-exec-10] INFO  c.e.b.controller.UserController - [Authenticate] - [POST]
+2023-05-15 11:46:29.367 [http-nio-9001-exec-8] INFO  c.e.b.controller.UserController - [Get all Travellers with given user Email Id] - [GET]

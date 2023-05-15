@@ -3,6 +3,7 @@ import AuthContext, { useAuth } from '../../context/AuthContext';
 import { orderApi } from '../../misc/OrderApi';
 import { useEffect } from 'react';
 import { handleLogError } from '../../misc/Helpers';
+import ShowTicketsList from './ShowTicketsList';
 
 export default function ShowTicketsPage() {
     const Mycontext = useContext(AuthContext);
@@ -16,7 +17,7 @@ export default function ShowTicketsPage() {
         const user = Auth.getUser()
         orderApi.getAllTickets(user,user.data.name)
           .then(response => {
-            setState(Prevstate => ({...Prevstate,travellers:response.data}))
+            setState({travellers:response.data})
           })
           .catch(error => {
             handleLogError(error)
@@ -24,9 +25,8 @@ export default function ShowTicketsPage() {
       } 
 
   return (
-
     <div>
-      
+      <ShowTicketsList travellers ={state.travellers}/>
     </div>
   )
 }
