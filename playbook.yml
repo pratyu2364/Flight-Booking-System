@@ -14,8 +14,7 @@
 
   tasks:
     - name: Start Minikube
-      command: minikube start
-      ignore_errors: true
+      shell: minikube start
 
     - name: Delete Pods running older images
       shell: kubectl delete deployment backend-deployment db-deployment frontend-deployment
