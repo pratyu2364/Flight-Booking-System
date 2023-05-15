@@ -64,7 +64,7 @@ pipeline {
 					colorized: true,
 					installation: 'Ansible',
 					inventory: 'inventory',
-					playbook: 'ansible-playbook.yml',
+					playbook: 'playbook.yml',
 					sudoUser: 'null'
 				}
 			
