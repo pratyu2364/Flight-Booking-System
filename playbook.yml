@@ -35,7 +35,7 @@
     #   shell: kubectl apply -f "kubernetes_deployment/db-secret.yaml"
 
     - name: Create DB deployment
-      shell: kubectl apply -f "kubernetes_deployment/db.yaml"
+      shell: kubectl apply -f "kubernetes_deployment/db.yaml" --insecure-skip-tls-verify=true
 
     - name: Create Backend deployment
       shell: kubectl apply -f "kubernetes_deployment/backend.yaml"
