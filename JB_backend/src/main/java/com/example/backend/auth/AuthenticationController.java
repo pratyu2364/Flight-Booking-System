@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000","http://jahazbooker-frontend:3000"})
+@CrossOrigin(origins = {"http://localhost:3000","http://jahazbooker-frontend:3000", "http://jahaz-booker.com"})
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
