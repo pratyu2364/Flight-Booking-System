@@ -1,21 +1,22 @@
-server:
-  port: 9001
-spring:
-  application:
-    name: backend-service
-  datasource:
-    url: jdbc:mysql://localhost:3306/flightdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
+# ---local testing
+# server:
+#   port: 9001
+# spring:
+#   application:
+#     name: backend-service
+#   datasource:
+#     url: jdbc:mysql://localhost:3306/flightdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+#     username: root
+#     password: gunCoder_34
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#   jpa:
+#     show-sql: true
+#     hibernate:
+#       ddl-auto: update
+#     database-platform: org.hibernate.dialect.MySQL8Dialect
+#   jackson:
+#     serialization:
+#       fail-on-empty-beans: false
   #allowPublicKeyRetrieval=true&
 #server:
 #  port: 9001
@@ -66,30 +67,30 @@ spring:
 # #    serialization:
 # #      fail-on-empty-beans: false
 #   #allowPublicKeyRetrieval=true&
-# server:
-#   port: 9001
-# spring:
-#   application:
-#     name: backend-service
-#   datasource:
-#     driver-class-name: com.mysql.cj.jdbc.Driver
-#     url: jdbc:mysql://${DB_SERVER}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true
-#     username: ${MYSQL_USER}
-#     password: ${MYSQL_PASSWORD}
-#     hikari:
-#       initialization-fail-timeout: 0
+server:
+  port: 9001
+spring:
+  application:
+    name: backend-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_SERVER}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    hikari:
+      initialization-fail-timeout: 0
 
-#   jpa:
-# #    database-platform: org.hibernate.dialect.MySQL8Dialect
-#     generate-ddl: true
-#     show-sql: true
-#     hibernate:
-#       ddl-auto: update
-# #    database-platform: org.hibernate.dialect.MySQL8Dialect
-#   jackson:
-#     serialization:
-#       fail-on-empty-beans: false
-# #logging:
-# #  level.org.springframework.web: DEBUG
-# #  level.org.hibernate: DEBUG
+  jpa:
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+#logging:
+#  level.org.springframework.web: DEBUG
+#  level.org.hibernate: DEBUG
 
