@@ -25,14 +25,14 @@
     # - name: Delete ingress
     #   shell: kubectl delete ingress my-ingress
 
-    - name: Create PVC
-      shell: kubectl apply -f "kubernetes_deployment/mysql-pv.yaml"
+    # - name: Create PVC
+    #   shell: kubectl apply -f "kubernetes_deployment/mysql-pv.yaml"
 
-    - name: Create DB Configmap
-      shell: kubectl apply -f "kubernetes_deployment/db-config.yaml"
+    # - name: Create DB Configmap
+    #   shell: kubectl apply -f "kubernetes_deployment/db-config.yaml"
 
-    - name: Create DB Secret
-      shell: kubectl apply -f "kubernetes_deployment/db-secret.yaml"
+    # - name: Create DB Secret
+    #   shell: kubectl apply -f "kubernetes_deployment/db-secret.yaml"
 
     - name: Create DB deployment
       shell: kubectl apply -f "kubernetes_deployment/db.yaml"
