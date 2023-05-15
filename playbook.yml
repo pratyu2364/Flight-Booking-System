@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Start Minikube
+      command: minikube start
+      ignore_errors: true
+      
+    - name: Apply YAML files
+      community.kubernetes.k8s:
+        state: present
+        src: ./kubernetes_deployment
+        kubeconfig: ~/.kube/config
