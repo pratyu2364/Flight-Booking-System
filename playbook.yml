@@ -1,12 +1,141 @@
 ---
-- hosts: localhost
+- name: Deploy application on Minikube
+  hosts: localhost
+
+  vars:
+    kubeconfig: /home/gunin/.kube/config
+    frontend_yaml: "kubernetes_deployment/frontend.yaml"
+    backend_yaml: "kubernetes_deployment/backend.yaml"
+    database_yaml: "kubernetes_deployment/db.yaml"
+    db_secret_file: "kubernetes_deployment/db-secret.yaml"
+    db_configmap_file: "kubernetes_deployment/db-config.yaml"
+    pvc_yaml: "kubernetes_deployment/mysql-pv.yaml"
+    ingress_yaml: "kubernetes_deployment/ingress.yaml"
+
   tasks:
     - name: Start Minikube
       command: minikube start
       ignore_errors: true
-      
-    - name: Apply YAML files
-      community.kubernetes.k8s:
+
+    # - name: Load Docker images into Minikube
+    #   vars:
+    #     docker_images:
+    #       - name: frontend-image
+    #         path: /path/to/frontend-image.tar
+    #       - name: backend-image
+    #         path: /path/to/backend-image.tar
+    #       - name: database-image
+    #         path: /path/to/database-image.tar
+    #   command: eval $(minikube docker-env) && docker load -i "{{ item.path }}"
+    #   with_items: "{{ docker_images }}"
+    #   ignore_errors: yes
+
+    - name: Apply PVC YAML file
+      kubectl:
+        src: "{{ pvc_yaml }}"
         state: present
-        src: ./kubernetes_deployment
-        kubeconfig: ~/.kube/config
+        kubeconfig: "{{ kubeconfig }}"
+
+    - name: Create database secret
+      kubectl:
+        src: "{{ db_secret_file }}"
+        state: present
+        kubeconfig: "{{ kubeconfig }}"
+
+    - name: Create database configmap
+      kubectl:
+        src: "{{ db_configmap_file }}"
+        state: present
+        kubeconfig: "{{ kubeconfig }}"
+
+    - name: Apply database YAML file
+      kubectl:
+        src: "{{ database_yaml }}"
+        state: present
+        kubeconfig: "{{ kubeconfig }}"
+
+    - name: Apply backend YAML file
+      kubectl:
+        src: "{{ backend_yaml }}"
+        state: present
+        kubeconfig: "{{ kubeconfig }}"
+
+
+    - name: Apply frontend YAML file
+      kubectl:
+        src: "{{ frontend_yaml }}"
+        state: present
+        kubeconfig: "{{ kubeconfig }}"
+
+    - name: Apply ingress YAML file
+      kubectl:
+        src: "{{ ingress_yaml }}"
+        state: present
+        kubeconfig: "{{ kubeconfig }}"
+
+    - name: Wait for frontend deployment to finish
+      kubectl:
+        kind: deployment
+        name: frontend
+        namespace: default
+        wait: yes
+        timeout: 300
+
+    - name: Wait for backend deployment to finish
+      kubectl:
+        kind: deployment
+        name: backend
+        namespace: default
+        wait: yes
+        timeout: 300
+
+    - name: Wait for database deployment to finish
+      kubectl:
+        kind: deployment
+        name: database
+        namespace: default
+        wait: yes
+        timeout: 300
+
+    - name: Wait for PVC creation to finish
+      kubectl:
+        kind: persistentvolumeclaim
+        name: my-pvc
+        namespace: default
+        wait: yes
+        timeout: 300
+
+    - name: Wait for ingress deployment to finish
+      kubectl:
+        kind: deployment
+        name: ingress
+        namespace: default
+        wait: yes
+        timeout: 300
+
+    - name: Print service URLs
+      command: minikube service frontend --url
+      register: frontend_service_url
+
+    - name: Print backend service URL
+      command: minikube service backend --url
+      register: backend_service_url
+
+    - name: Print database service URL
+      command: minikube service database --url
+      register: database_service_url
+
+    - name: Print ingress service URL
+      command: minikube service ingress --url
+      register: ingress_service_url
+
+    - name: Show service URLs
+      msg: |
+      Frontend: {{ frontend_service_url.stdout }}
+      Backend: {{ backend_service_url.stdout }}
+      Database: {{ database_service_url.stdout }}
+      Ingress: {{ ingress_service_url.stdout }}
+
+    # - name: Stop Minikube
+    #   command: minikube stop
+    #   ignore_errors: true

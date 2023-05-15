@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend-container
-        image: pratyu2364/backend-rep:latest
+        image: guninjain/jahazbooker-backend:latest
         imagePullPolicy: Always
         ports:
         - name: http

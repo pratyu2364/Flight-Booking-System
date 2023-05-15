@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend-container
-        image: pratyu2364/frontend:latest
+        image: guninjain/jahazbooker-frontend:latest
         imagePullPolicy: Always
         ports:
         - name: http
