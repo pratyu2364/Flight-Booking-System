@@ -13,17 +13,17 @@
     ingress_yaml: "kubernetes_deployment/ingress.yaml"
 
   tasks:
-    - name: Start Minikube
-      shell: minikube start
+    # - name: Start Minikube
+    #   shell: minikube start
 
-    - name: Delete Pods running older images
-      shell: kubectl delete deployment backend-deployment db-deployment frontend-deployment
+    # - name: Delete Pods running older images
+    #   shell: kubectl delete deployment backend-deployment db-deployment frontend-deployment
     
-    - name: Delete services
-      shell: kubectl delete services backend-service frontend-service db-service
+    # - name: Delete services
+    #   shell: kubectl delete services backend-service frontend-service db-service
 
-    - name: Delete ingress
-      shell: kubectl delete ingress my-ingress
+    # - name: Delete ingress
+    #   shell: kubectl delete ingress my-ingress
 
     - name: Create PVC
       shell: kubectl apply -f "kubernetes_deployment/mysql-pv.yaml"
