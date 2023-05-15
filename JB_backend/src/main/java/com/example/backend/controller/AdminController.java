@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000","http://jahazbooker-frontend:3000"})
+@CrossOrigin(origins = {"http://localhost:3000","http://jahazbooker-frontend:3000","http://jahaz-booker.com"})
 @RequestMapping("/admin")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
