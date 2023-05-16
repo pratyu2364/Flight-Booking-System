@@ -1,7 +1,8 @@
 ---
 - name: Deploy application on Minikube
   hosts: localhost
-
+  become: yes
+    
   vars:
     kubeconfig: /home/gunin/.kube/config
     frontend_yaml: "kubernetes_deployment/frontend.yaml"
