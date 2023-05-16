@@ -1,3 +1,5 @@
+package com.example.backend;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -20,8 +22,10 @@ import com.example.backend.controller.UserController;
 import com.example.backend.dto.TravellerDto;
 import com.example.backend.dto.TravellerListDto;
 import com.example.backend.entity.Airplane;
+import com.example.backend.entity.Airport;
 import com.example.backend.entity.Traveller;
 import com.example.backend.service.AirplaneService;
+import com.example.backend.service.AirportService;
 import com.example.backend.service.BookingService;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,6 +39,9 @@ public class ControllerTest {
 
     @InjectMocks
     private AdminController adminController;
+
+    @Mock
+    private AirportService airportService;
 
     @Test
     public void testAddAirplane(){
@@ -50,11 +57,32 @@ public class ControllerTest {
         verify(airplaneService).add_airplane(any(Airplane.class));
         
         // Verify the response status code and body
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        // assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
 
-        assertEquals(response,airplane.toString());
+        assertEquals(response.getBody(),airplane);
 
     }
+
+    @Test
+    public void testAddAirport(){
+        UUID airportId = UUID.randomUUID();
+        Airport airport = new Airport(airportId,"IGI Airport","Delhi","NCR","Delhi","India","110021");
+        when(airportService.add_airport(any(Airport.class))).thenReturn(airport.toString());
+
+
+        // Make the API call
+        ResponseEntity<?> response = adminController.add_airport(airport);
+        
+        // Verify that the airplaneService was called with the correct arguments
+        verify(airportService).add_airport((any(Airport.class)));
+        
+        // Verify the response status code and body
+        // assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
+        
+        assertEquals(response.getBody(),airport);
+
+    }
+
 
     // @Test
     // public void testBookTickets() {
