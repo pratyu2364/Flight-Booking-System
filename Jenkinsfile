@@ -65,7 +65,11 @@ pipeline {
 					installation: 'Ansible',
 					inventory: 'inventory',
 					playbook: 'playbook.yml',
-					sudoUser: 'null'
+					vaultCredentialsId: 'my-ansible-vault-credentials',
+					extraVars: [
+                        			passwd: readFile('passwd.yml')
+                    			]
+					
 				}
 			
             }
